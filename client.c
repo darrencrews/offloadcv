@@ -119,8 +119,7 @@ while(recv_size < size) {
   }
 
   memset(&server,0,sizeof(server));
-//  server.sin_addr.s_addr = inet_addr(/*"10.0.0.30"*/"ppd-linux.hf.intel.com");
-//    server.sin_addr.s_addr = "ppd-linux.hf.intel.com";
+  server.sin_addr.s_addr = inet_addr("10.0.0.30");
   printf("IP Address %d\n",server.sin_addr.s_addr);
   server.sin_family = AF_INET;
   server.sin_port = htons( 8889 );
@@ -141,3 +140,12 @@ while(recv_size < size) {
 
   return 0;
   }
+
+void SendMessage(int socket, char *buffer)
+{
+  int n;
+  n = write(socket,buffer,strlen(buffer));
+  if (n < 0) 
+     puts("ERROR writing to socket");
+}
+  
