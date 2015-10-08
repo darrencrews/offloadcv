@@ -117,3 +117,19 @@ puts("Connection accepted");
     fflush(stdout);
     return 0;
     }
+void SendMessage(int socket, char *buffer)
+{
+  int n;
+  n = write(socket,buffer,strlen(buffer));
+  if (n < 0) 
+     puts("ERROR writing to socket");
+}
+void SendMessage(int socket)
+{
+  int n;
+  char buffer[256];
+  n = read(socket,buffer,255);
+  if (n < 0) 
+       puts("ERROR reading from socket");
+  printf("%s\n",buffer);
+}

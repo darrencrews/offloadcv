@@ -6,6 +6,7 @@
 #include<unistd.h>  
 #include<iostream>
 #include<fstream>
+#include<string>
 #include<errno.h>
 using namespace std;
 
@@ -107,10 +108,15 @@ while(recv_size < size) {
   {
 
   int socket_desc;
+  char myText[256];
   struct sockaddr_in server;
   char *parray;
-
-
+  string line;
+  ifstream myfile;
+  myfile.open ("ipaddress");
+  getline (myfile, line);
+  //puts(line);
+  myfile.close();
   //Create socket
   socket_desc = socket(AF_INET , SOCK_STREAM , 0);
 
@@ -119,7 +125,7 @@ while(recv_size < size) {
   }
 
   memset(&server,0,sizeof(server));
-  server.sin_addr.s_addr = inet_addr("10.0.0.30");
+  server.sin_addr.s_addr = inet_addr(/*line*/"10.0.0.30");
   printf("IP Address %d\n",server.sin_addr.s_addr);
   server.sin_family = AF_INET;
   server.sin_port = htons( 8889 );
@@ -147,5 +153,14 @@ void SendMessage(int socket, char *buffer)
   n = write(socket,buffer,strlen(buffer));
   if (n < 0) 
      puts("ERROR writing to socket");
+}
+void SendMessage(int socket)
+{
+  int n;
+  char buffer[256];
+  n = read(socket,buffer,255);
+  if (n < 0) 
+       puts("ERROR reading from socket");
+  printf("%s\n",buffer);
 }
   
