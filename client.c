@@ -111,12 +111,20 @@ while(recv_size < size) {
   char myText[256];
   struct sockaddr_in server;
   char *parray;
-  string line;
+  /*string line;
   ifstream myfile;
   myfile.open ("ipaddress");
   getline (myfile, line);
   //puts(line);
-  myfile.close();
+  myfile.close();*/
+   char c[1000];
+   FILE *fptr;
+   if ((fptr=fopen("ipaddress","r"))==NULL){
+       printf("Error! opening file");
+   }
+   fscanf(fptr,"%[^\n]",c);
+   printf("Data from file: %s\n",c);
+   fclose(fptr);
   //Create socket
   socket_desc = socket(AF_INET , SOCK_STREAM , 0);
 
