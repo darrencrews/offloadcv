@@ -133,7 +133,7 @@ while(recv_size < size) {
   }
 
   memset(&server,0,sizeof(server));
-  server.sin_addr.s_addr = inet_addr(/*line*/"10.0.0.30");
+  server.sin_addr.s_addr = inet_addr(c);
   printf("IP Address %d\n",server.sin_addr.s_addr);
   server.sin_family = AF_INET;
   server.sin_port = htons( 8889 );
